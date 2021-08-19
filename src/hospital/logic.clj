@@ -2,8 +2,8 @@
 
 (defn cabe-na-fila?
   [hospital departamento]
-  ;(count (get hospital departamento))
-  (-> hospital
-      departamento
-      count
-      (< 5)))
+  (some-> hospital
+          departamento
+          count
+        (< 5)))
+

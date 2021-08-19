@@ -57,4 +57,7 @@
     (testing "recusa pessoas se não couber"
       (let [hospital-cheio {:espera (conj h.model/fila-vazia "5"), :raio-x (conj h.model/fila-vazia "1" "2" "53" "42" "13")}]
         (is (thrown? clojure.lang.ExceptionInfo
-                    (transfere hospital-cheio :espera :raio-x))))))
+                    (transfere hospital-cheio :espera :raio-x)))))
+    (testing "Não pode invocar transferencia sem hospital"
+      (is (thrown? clojure.lang.ExceptionInfo
+            (transfere nil :espera :raio-x)))))

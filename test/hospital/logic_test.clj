@@ -19,20 +19,16 @@
   (testing "Caso em que cabe na fila mas o departamento não existe"
          (is (not (cabe-na-fila? {:espera [1 2 3 4]}, :raio-x)))))
 
-(deftest cehga-em-test
-  (testing "aceita pessoa enquanto cabem pessoas na fila"
-    (is (= {:espera [1 2 3 4 5]}
-           (chega-em {:espera [1 2 3 4]}, :espera, 5)))
-    (is (= {:espera [1 2 5]}
-           (chega-em {:espera [1 2]}, :espera, 5))))
-  (testing "nao aceita quando nao cabe na fila"
-    ;CÓDIGO HORRIVEL
-    ;(is (thrown? clojure.lang.ExceptionInfo
-    ;             (chega-em {:espera [1 35 42 64 21]}, :espera 76)))
-
-    (is (thrown? IllegalStateException
-                (chega-em {:espera [1 35 42 64 21]}, :espera 76)))
-    ))
+(deftest chega-em-test
+  (testing "Aceita quando cabe na fila"
+    (is (= {:hospital {:espera [1 2 3 4 5]}, :resultado :sucesso}
+           (chega-em {:espera [1 2 3 4]}, :espera 5 )))
+    (is (= {:hospital {:espera [1 2 5]}, :resultado :sucesso}
+           (chega-em {:espera [1 2]}, :espera 5 ))))
+  (testing "Nao aceita quando nao cabe na fila"
+    (is (= {:hospital {:espera [1 35 42 64 21]}, :resultado :impossivel-colocar-pessoa-na-fila}
+        (chega-em {:espera [1 35 42 64 21]}, :espera 76 ))))
+  )
 
 
 

@@ -60,4 +60,11 @@
                     (transfere hospital-cheio :espera :raio-x)))))
     (testing "Não pode invocar transferencia sem hospital"
       (is (thrown? clojure.lang.ExceptionInfo
-            (transfere nil :espera :raio-x)))))
+            (transfere nil :espera :raio-x))))
+  (testing "condicoes obrigatorias"
+    (let [hospital {:espera (conj h.model/fila-vazia "5"), :raio-x (conj h.model/fila-vazia "1" "2" "53" "42")}]
+      (is (thrown? AssertionError
+        (transfere hospital :nao-existe :raio-x)))
+      (is (thrown? AssertionError
+        (transfere hospital :raio-x :nao-existe))))
+    ))

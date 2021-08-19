@@ -1,4 +1,6 @@
-(ns hospital.logic)
+(ns hospital.logic
+  (:require [hospital.model :as h.model]
+            [schema.core :as s]))
 
 ; existe um problema de condicional quando o departamento não existe
 ;(defn cabe-na-fila?
@@ -44,20 +46,20 @@
     (update hospital departamento conj pessoa)
     (throw (ex-info "Não cabe ninguem neste departamento" {:paciente pessoa}))))
 
-(defn atende
-  [hospital departamento]
+(s/defn atende :- h.model/Hospital
+  [hospital :- h.model/Hospital, departamento :- s/Keyword]
   (update hospital departamento pop))
 
-(defn proxima
+(s/defn proxima :- h.model/PacienteID
   "Retorna o proximo da fila"
-  [hospital departamento]
+  [hospital :- h.model/Hospital, departamento :- s/Keyword]
   (-> hospital
       departamento
       peek))
 
-(defn transfere
-  "Tranfere para o proximo paciente da fila_de para a fila_para"
-  [hospital de para]
+(s/defn transfere :- h.model/Hospital
+  "Tranfere para o proximo paciente da fila departamento(de) para a fila_para"
+  [hospital :- h.model/Hospital, de :- s/Keyword, para :- s/Keyword]
   (let [pessoa (proxima hospital de)]
     (-> hospital
         (atende de)

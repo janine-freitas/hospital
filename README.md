@@ -1,7 +1,7 @@
 # Projeto Hospital em Clojure Explorando Testes
 Meus estudo sobre como realizar testes usando linguagem clojure.
 
-## Temas Abordados:
+## Temas Abordados
   * Aprenda a diferença entre escrever testes e testar
 
   * Utilize técnicas como exploração de boundary e category partitioning
